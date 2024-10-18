@@ -15,6 +15,7 @@ abstract class Offer{
     {
         $this->name = $name;
         $this->basePrice = $basePrice;
+        $this->taxRate = $taxRate;
     }
 
 }
