@@ -1,0 +1,19 @@
+{
+    "name": "daw2/tienda",
+    "type": "project",
+    "require": {
+        "composer": "^2.4",
+        "phpunit/phpunit": "^10.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Daw2\\Tienda\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dylan",
+            "email": "dylam2303@gmail.com"
+        }
+    ]
+}
