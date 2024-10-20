@@ -9,11 +9,11 @@ class Event extends Service {
         $this->eventDate = new DateTime($eventDate);
     }
 
-    public function eventOccurred() {
+    public function eventOccurred() { 
         return new DateTime() > $this->eventDate;
     }
 
-    public function daysToEvent() {
+    public function daysToEvent() { 
         $today = new DateTime();
         return $today->diff($this->eventDate)->days;
     }

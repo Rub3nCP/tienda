@@ -1,20 +1,26 @@
 <?php
 class Service extends Item {
-    protected $name;
+    private $eventDate;
+    private $sessions;
     protected $price;
-    protected static $tax = 0.21; // Definimos el impuesto como una propiedad estática
 
-    public function __construct($name, $price) {
-        $this->name = $name;
+    public function __construct($name, $price, $sessions = null, $eventDate = null) {
+        parent::__construct($name, $price);
+        $this->sessions = $sessions;
         $this->price = $price;
+        $this->eventDate = $eventDate ? new DateTime($eventDate) : null;
     }
 
-    public function getName() {
-        return $this->name;
+    public function getEventDate() {
+        return $this->eventDate;
     }
 
-    public function calculateFinalPrice() {
-        return $this->price * (1 + self::$tax); // Usamos self:: para acceder a la propiedad estática
+    public function getSessions() {
+        return $this->sessions;
+    }
+
+    public function getPrice() {
+        return $this->price;
     }
 }
 ?>

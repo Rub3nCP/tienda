@@ -1,6 +1,6 @@
 <?php
-require_once 'Item.php'; // Asegúrate de que la clase Item esté incluida
-require_once 'Service.php'; // Asegúrate de que la clase Service esté incluida
+require_once 'Item.php'; 
+require_once 'Service.php'; 
 
 class Shop {
     private $items = []; // Arreglo para almacenar los artículos

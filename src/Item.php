@@ -1,23 +1,18 @@
 <?php
-abstract class Item {
+class Item {
     protected $name;
-    protected $basePrice;
-    protected static $taxRate = 0.07; // 7%
+    protected $price;
 
-    public function __construct($name, $basePrice) {
+    public function __construct($name, $price) {
         $this->name = $name;
-        $this->basePrice = $basePrice;
-    }
-
-    public function calculateFinalPrice() {
-        return round($this->basePrice * (1 + self::$taxRate), 2);
+        $this->price = $price; // Inicializa la propiedad price
     }
 
     public function getName() {
         return $this->name;
     }
 
-    public static function setTaxRate($rate) {
-        self::$taxRate = $rate;
+    public function calculateFinalPrice() {
+        return $this->price; // Devuelve el precio final
     }
 }

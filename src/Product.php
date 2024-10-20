@@ -1,35 +1,32 @@
 <?php
-require_once 'Item.php';
-
 class Product extends Item {
-    protected $manufacturer;
-    protected $weight; // in grams
-    protected $volume; // in cm3
-    protected $expirationDate;
+    private $manufacturer;
+    private $stock;
+    private $maxStock;
+    protected $price; // Asegúrate de que esta propiedad esté definida
 
-    public function __construct($name, $basePrice, $manufacturer, $weight, $volume, $expirationDate = null) {
-        parent::__construct($name, $basePrice);
+    public function __construct($name, $price, $manufacturer, $stock, $maxStock) {
+        parent::__construct($name, $price);
         $this->manufacturer = $manufacturer;
-        $this->weight = $weight;
-        $this->volume = $volume;
-        $this->expirationDate = $expirationDate;
+        $this->stock = $stock;
+        $this->maxStock = $maxStock;
+        $this->price = $price; // Inicializa la propiedad price
     }
 
-    public function calculateShippingCost() {
-        $cost = 2 + ($this->weight * 0.0002);
-        $volumeIncrement = floor($this->volume / 1000);
-        return round($cost + $volumeIncrement, 2);
+    public function getManufacturer() {
+        return $this->manufacturer;
     }
 
-    public function isExpired() {
-        return $this->expirationDate && $this->expirationDate < new DateTime();
+    public function getStock() {
+        return $this->stock;
     }
 
-    public function daysUntilExpiration() {
-        if ($this->expirationDate) {
-            $now = new DateTime();
-            return $now->diff($this->expirationDate)->days;
-        }
-        return null;
+    public function getMaxStock() {
+        return $this->maxStock;
+    }
+
+    public function getPrice() {
+        return $this->price; // Devuelve el precio
     }
 }
+?>

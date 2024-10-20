@@ -23,7 +23,7 @@ class PerishableProduct extends Product {
         if ($this->isExpired()) {
             return 0;
         } elseif ($this->daysToExpire() <= 30) {
-            $price *= 0.9; // 10% discount
+            $price *= 0.9; 
         }
         return round($price, 2);
     }
