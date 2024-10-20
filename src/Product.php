@@ -1,63 +1,35 @@
 <?php
+require_once 'Item.php';
 
-namespace Daw2\Tienda;
+class Product extends Item {
+    protected $manufacturer;
+    protected $weight; // in grams
+    protected $volume; // in cm3
+    protected $expirationDate;
 
-class Product {
-    private $name;
-    private $description;
-    private $weight;
-    private $volume;
-    private $brand;
-    private $price;
-
-    public function __construct($name, $description, $weight, $volume, $brand, $price) {
-        if ($weight < 0 || $volume < 0 || $price < 0) {
-            throw new \InvalidArgumentException("El peso, volumen y precio deben ser positivos.");
-        }
-
-        $this->name = $name;
-        $this->description = $description;
+    public function __construct($name, $basePrice, $manufacturer, $weight, $volume, $expirationDate = null) {
+        parent::__construct($name, $basePrice);
+        $this->manufacturer = $manufacturer;
         $this->weight = $weight;
         $this->volume = $volume;
-        $this->brand = $brand;
-        $this->price = $price;
+        $this->expirationDate = $expirationDate;
     }
 
-    public function getPrice() {
-        return $this->price;
+    public function calculateShippingCost() {
+        $cost = 2 + ($this->weight * 0.0002);
+        $volumeIncrement = floor($this->volume / 1000);
+        return round($cost + $volumeIncrement, 2);
     }
 
-    public function shippingCost() {
-        $costWeight = $this->weight * 0.0002;
-        $volumeCost = floor($this->volume / 1000);
-        return round($costWeight + $volumeCost, 2); 
+    public function isExpired() {
+        return $this->expirationDate && $this->expirationDate < new DateTime();
     }
 
-    public function getName() {
-        return $this->name;
-    }
-
-    public function getDescription() {
-        return $this->description;
-    }
-
-    public function getWeight() {
-        return $this->weight;
-    }
-
-    public function getVolume() {
-        return $this->volume;
-    }
-
-    public function getBrand() {
-        return $this->brand;
-    }
-}
-
-class ProductPerishable extends Product {
-    private $expiryDate;
-
-    public function expiredProduct() {
-        return $this->expiryDate < new \DateTime(); // Devuelve true si ya ha caducado, false en caso contrario
+    public function daysUntilExpiration() {
+        if ($this->expirationDate) {
+            $now = new DateTime();
+            return $now->diff($this->expirationDate)->days;
+        }
+        return null;
     }
 }
